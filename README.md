@@ -3,7 +3,7 @@
 
 # cc-planning-mode-tips
 
-> 50 tips covering the full planning mode workflow — from writing a prompt that gets a useful plan, to guiding exploration, to approving and iterating. Concrete before/after examples and explicit anti-patterns throughout.
+> 53 tips covering the full planning mode workflow — from writing a prompt that gets a useful plan, to guiding exploration, to approving and iterating. Concrete before/after examples and explicit anti-patterns throughout.
 
 Planning mode is Claude Code's workflow for exploring your codebase in read-only mode, writing a plan, and requesting approval before making changes. This repo covers the full workflow from first prompt to plan approval, organized by the phases you'll actually experience. It's built for intermediate Claude Code users who want to move beyond the basics.
 
@@ -19,7 +19,7 @@ Planning mode is Claude Code's workflow for exploring your codebase in read-only
 | [Shaping the Design](#shaping-the-design) | 8 | How to influence the architecture and structure of the plan Claude produces |
 | [Evaluating & Iterating on the Plan](#evaluating--iterating-on-the-plan) | 7 | How to read a plan critically, push back, and iterate without starting over |
 | [Workflow & Collaboration](#workflow--collaboration) | 7 | How to integrate plan mode into your day-to-day and team workflows |
-| [Anti-Patterns & Traps](#anti-patterns--traps) | 7 | The most common ways intermediate users misuse or underuse plan mode |
+| [Anti-Patterns & Traps](#anti-patterns--traps) | 10 | The most common ways intermediate users misuse or underuse plan mode |
 
 ---
 
