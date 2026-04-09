@@ -3,9 +3,11 @@
 
 # cc-planning-mode-tips
 
-> 50 battle-tested tips for intermediate Claude Code users who want to get the most out of planning mode.
+> 50 tips covering the full planning mode workflow — from writing a prompt that gets a useful plan, to guiding exploration, to approving and iterating. Concrete before/after examples and explicit anti-patterns throughout.
 
-*Tips follow the planning mode workflow from start to finish — jump to where you're stuck, or read top to bottom for the full mental model. Unfamiliar with planning-mode terminology? See the [Glossary](#glossary) at the bottom.*
+Planning mode is Claude Code's workflow for exploring your codebase in read-only mode, writing a plan, and requesting approval before making changes. This repo covers the full workflow from first prompt to plan approval, organized by the phases you'll actually experience. It's built for intermediate Claude Code users who want to move beyond the basics.
+
+*New to planning mode? Start with [Before You Start](#before-you-start). Already using it but getting vague plans? Jump to [Writing a Great Plan Prompt](#writing-a-great-plan-prompt). Getting surprising results mid-implementation? See [Anti-Patterns & Traps](#anti-patterns--traps). Unfamiliar with planning-mode terminology? See the [Glossary](#glossary) at the bottom.*
 
 ## Contents
 
@@ -775,19 +777,19 @@ Don't copy the entire plan verbatim — PR descriptions should be concise. Extra
 
 ---
 
-### Steer plans with `AskUserQuestion` responses
+### Commit plan files to git for durable decision records
 
 **Why & when it matters:**
-Claude's questions during planning reveal uncertainties — your answers shape the plan more than your initial prompt.
+Plan files are ephemeral by default — committing them before approval creates a permanent record of what was decided and why, useful for post-mortems and reverting misaligned implementations.
 
 **Example:**
-You ask Claude to add caching. Claude asks: "Should cache invalidation be time-based (TTL) or event-based (invalidate on writes)?" Your answer determines the entire caching architecture. If you answer "TTL," the plan is simple. If you answer "event-based," the plan includes cache invalidation hooks throughout the write path.
+You approve a plan to refactor the auth system. Three weeks later, a bug surfaces and you need to understand why the current approach was chosen over alternatives. The plan file (committed before implementation) shows the tradeoffs discussed, the constraints that drove the decision, and what was explicitly ruled out. Without it, you're reverse-engineering decisions from code and commit messages.
 
 **How to apply it:**
-When Claude asks questions during planning, treat them as critical decision points. Don't give minimal answers — explain your reasoning so Claude can apply it to related decisions. "Event-based because we can't tolerate stale data" is better than just "event-based."
+After Claude writes a plan and you've iterated to approval, commit the plan file from `.claude/plans/` to git before starting implementation. Use a commit message like "Plan: refactor auth system" so it's findable in git log. This creates a durable record that survives beyond the conversation. If the implementation diverges from the plan, the diff between plan and reality reveals where and why.
 
 **Pitfalls:**
-Don't answer questions you're uncertain about. "I don't know, what do you recommend?" is valid. Claude will propose options with tradeoffs, then you can decide.
+Don't commit every draft plan — only commit plans you've approved and intend to implement. Don't commit plans for trivial tasks (typo fixes, dependency updates) — the overhead isn't worth it. Do commit plans for architectural decisions, multi-file refactors, or anything where future-you will ask "why did we do it this way?"
 
 ---
 
@@ -915,7 +917,7 @@ Don't use this as a reason to never plan — if you discover a genuinely large n
 
 **Planning mode** — A workflow in Claude Code where Claude explores your codebase in read-only mode, writes a plan to a file, and requests approval before making any changes.
 
-**ExitPlanMode** — The tool call Claude uses to signal that planning is complete and the plan is ready for your review and approval.
+**`ExitPlanMode`** — The tool call Claude uses to signal that planning is complete and the plan is ready for your review and approval.
 
 **Explore agents** — Parallel subagents Claude spawns during Phase 1 to read files, search for patterns, and gather context about your codebase before writing a plan.
 
@@ -923,9 +925,9 @@ Don't use this as a reason to never plan — if you discover a genuinely large n
 
 **Phase 1 (Exploration)** — The read-only phase of planning mode where Claude uses Explore agents to understand your codebase before proposing changes.
 
-**AskUserQuestion** — The tool Claude uses to ask clarifying questions during planning, helping refine requirements and resolve uncertainties before implementation.
+**`AskUserQuestion`** — The tool Claude uses to ask clarifying questions during planning, helping refine requirements and resolve uncertainties before implementation.
 
-**CLAUDE.md** — A file in your repo root that Claude reads automatically at the start of every conversation, used to document durable constraints and project context.
+**`CLAUDE.md`** — A file in your repo root that Claude reads automatically at the start of every conversation, used to document durable constraints and project context.
 
 **Blast radius** — The full set of files, functions, and systems affected by a proposed change, including indirect dependencies and downstream impacts.
 

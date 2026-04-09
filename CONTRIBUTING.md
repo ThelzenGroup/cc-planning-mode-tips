@@ -16,6 +16,18 @@ Contributions that improve or expand this playbook are very welcome.
 - Tips aimed at beginners (this repo targets intermediate users)
 - Placeholder content or incomplete submissions
 
+## Style
+
+Write in second person, imperative voice. Lead with the point.
+
+❌ "It might be worth considering that Claude could potentially benefit from more context about why you're making the change."
+✅ "Tell Claude why you're making the change, not just what you want."
+
+❌ "In many cases, it can be helpful to..."
+✅ "When X, do Y."
+
+Keep "Why & when" to one sentence. "How to apply" must contain at least one action the reader can execute today.
+
 ## How to submit
 
 **For new tips:** We recommend opening an issue first with your tip idea or draft. This takes 2 minutes and could save you rewriting a full tip if it overlaps with existing content or is out of scope. In the issue, include:
