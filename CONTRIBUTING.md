@@ -18,16 +18,21 @@ Contributions that improve or expand this playbook are very welcome.
 
 ## How to submit
 
-**For new tips:** We recommend opening an issue first with your tip idea or draft. This takes 2 minutes and could save you rewriting a full tip if it overlaps with existing content or is out of scope.
+**For new tips:** We recommend opening an issue first with your tip idea or draft. This takes 2 minutes and could save you rewriting a full tip if it overlaps with existing content or is out of scope. In the issue, include:
+- The tip headline (imperative form)
+- A one-sentence summary of what it teaches
+- Which existing tips it's most similar to and how it differs
 
-**For improvements to existing tips:** Open a PR directly with your changes.
+This lets us give you quick feedback before you invest time in a full write-up.
 
-**All PRs must include a differentiation statement** (see PR template). This is required — PRs without it will not be reviewed. Example:
+**For improvements to existing tips:** Open a PR directly with your changes. Improvements include: adding better examples, clarifying confusing language, fixing errors, or expanding the Pitfalls section with real failure modes you've encountered.
+
+**All PRs must include a differentiation statement** (see PR template). This is required — PRs without it will not be reviewed. The differentiation statement should name the 1-3 most similar existing tips and explain the specific difference in insight or actionable guidance. Example:
 
 > Most similar existing tips: "Give Claude the why behind the task"
 > This tip differs because: it focuses on negative constraints (what NOT to do) rather than positive intent
 
-PRs are reviewed against the quality bar above.
+PRs are reviewed against the quality bar above. Expect feedback on: whether the tip is truly distinct, whether the example is concrete enough, and whether the "How to apply" section gives actionable guidance. We aim to review PRs within 3-5 days.
 
 ## Checking for near-duplicates
 
@@ -35,15 +40,19 @@ Before writing your tip, answer this question: **What does this tip tell the rea
 
 If you can't answer this specifically, your tip may be a near-duplicate.
 
+Near-duplicates are the most common reason for rejection. They happen when two tips use different words but give the reader the same mental model and the same actionable guidance. The test isn't "do these tips sound different?" — it's "would a reader who follows tip A do anything differently than a reader who follows tip B?"
+
 **Example of a near-duplicate (would be rejected):**
 - Existing tip: "Give Claude the why behind the task"
 - Proposed tip: "Explain your reasoning to Claude"
-- Problem: Different words, same insight, same action
+- Problem: Different words, same insight, same action. Both tips tell the reader to provide intent/reasoning in their prompt. A reader who has internalized the first tip gains nothing from the second.
 
 **Example of distinct tips (would be accepted):**
 - Tip A: "Give Claude the why behind the task" (about intent)
 - Tip B: "Name the exact files involved" (about scope)
-- Why it works: Both improve plan prompts, but target completely different failure modes
+- Why it works: Both improve plan prompts, but target completely different failure modes. A reader could apply both tips to the same prompt and get value from each. The actions are distinct: one adds reasoning, the other adds file paths.
+
+When in doubt, read the existing tips in your target category carefully. If your tip feels like a variation or restatement of an existing one, it probably is.
 
 ## Copy-paste template
 
