@@ -913,6 +913,54 @@ Don't use this as a reason to never plan — if you discover a genuinely large n
 
 ---
 
+### Don't approve plans with vague verification steps
+
+**Why & when it matters:**
+Plans without concrete testing criteria often produce code that passes tests but fails in production.
+
+**Example:**
+Claude's plan for adding rate limiting ends with "Verification: test that it works." You approve. Implementation completes. You manually test with a few requests and it seems fine. You deploy. Production traffic reveals the rate limiter doesn't reset properly across server restarts, causing false positives. A concrete verification step would have caught this: "Send 100 requests, restart the server, send 100 more — confirm limits reset correctly."
+
+**How to apply it:**
+Before approving a plan, check the verification section. Does it specify exact steps you can execute? Does it cover edge cases (restarts, concurrent requests, error conditions)? If the verification is generic ("test it", "make sure it works"), ask Claude to be specific: "How exactly do I verify this? What are the test cases?"
+
+**Pitfalls:**
+Don't confuse verification steps with unit tests. Verification is "how do I know this works in the real system?" Unit tests are part of implementation. Both matter, but they're different.
+
+---
+
+### Don't use plan mode for exploratory coding
+
+**Why & when it matters:**
+If you're spiking to understand a problem, direct prompting is faster — plan mode is for implementation, not discovery.
+
+**Example:**
+You're investigating why API latency spiked. You don't know if it's the database, the cache, or the external service. You invoke plan mode: "figure out why the API is slow." Claude explores, writes a plan to add logging. But you don't need a plan — you need to poke around, run queries, check metrics. Direct prompts like "show me recent slow queries" or "check Redis hit rates" would have been faster.
+
+**How to apply it:**
+Use plan mode when you know what needs to change but not how to change it safely. Use direct prompts when you don't know what's wrong yet. Exploration is iterative and non-linear — planning mode's structured workflow adds overhead without benefit. Once exploration reveals the problem, then plan the fix.
+
+**Pitfalls:**
+Don't avoid planning legitimate fixes just because you discovered them through exploration. "Explore with prompts, plan the fix" is the right sequence.
+
+---
+
+### Avoid planning when you're unclear on requirements
+
+**Why & when it matters:**
+Vague requests produce vague plans — planning mode amplifies clarity, it doesn't create it.
+
+**Example:**
+Your PM says "we need better error handling" without specifics. You invoke plan mode with that exact phrase. Claude explores, finds 50 places errors are handled differently, and writes a vague plan to "standardize error handling." You approve because it sounds reasonable. Implementation starts and you realize you don't know what "standardized" means — should errors be logged? Returned to the client? Sent to Sentry? The plan didn't clarify because your request didn't clarify.
+
+**How to apply it:**
+Before invoking plan mode, answer: what does success look like? What specific problem am I solving? If you can't answer these, clarify requirements first — talk to your PM, check the ticket, look at user reports. Once you know what you want, then plan how to build it. Planning mode is not a requirements-gathering tool.
+
+**Pitfalls:**
+Don't use "I'll figure it out during planning" as an excuse to skip requirements work. Claude can't read your PM's mind any better than you can.
+
+---
+
 ## Glossary
 
 **Planning mode** — A workflow in Claude Code where Claude explores your codebase in read-only mode, writes a plan to a file, and requests approval before making any changes.
