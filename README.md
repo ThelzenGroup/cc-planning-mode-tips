@@ -645,23 +645,23 @@ Don't approve parts that depend on the parts you're rejecting. If the API change
 
 ---
 
-### Understand when to call ExitPlanMode vs. keep refining
+### Understand when to call `ExitPlanMode` vs. keep refining
 
 **Why & when it matters:**
-Calling ExitPlanMode too early produces misaligned implementations; iterating too long wastes time on diminishing returns.
+Calling `ExitPlanMode` too early produces misaligned implementations; iterating too long wastes time on diminishing returns.
 
 **Example:**
 After two rounds of iteration, the plan is 90% there but you're still uncertain about one edge case. You have two options: 1) Approve and handle the edge case during implementation, or 2) Iterate one more time to nail down the edge case in the plan. If the edge case is complex and affects multiple files, iterate. If it's a small detail that won't ripple, approve and handle it during implementation.
 
 **How to apply it:**
-Call ExitPlanMode when: the plan is specific enough to execute, you understand the approach and agree with it, and any remaining uncertainties are small enough to resolve during implementation. Keep refining when: the plan is vague, you don't understand the approach, or there are architectural decisions still unresolved.
+Call `ExitPlanMode` when: the plan is specific enough to execute, you understand the approach and agree with it, and any remaining uncertainties are small enough to resolve during implementation. Keep refining when: the plan is vague, you don't understand the approach, or there are architectural decisions still unresolved.
 
 **Pitfalls:**
 Don't use "I'll figure it out during implementation" as an excuse to approve a vague plan. If you can't mentally walk through the implementation based on the plan, it's not ready.
 
 ---
 
-### Use AskUserQuestion responses to steer toward your intent
+### Use `AskUserQuestion` responses to steer toward your intent
 
 **Why & when it matters:**
 Claude's questions during planning reveal what it's uncertain about — your answers shape the plan more than your initial prompt.
@@ -679,10 +679,10 @@ Don't answer questions you're not sure about. "I don't know, what do you recomme
 
 ## Workflow & Collaboration
 
-### Use CLAUDE.md to pre-load constraints
+### Use `CLAUDE.md` to pre-load constraints
 
 **Why & when it matters:**
-Every planning session starts fresh — CLAUDE.md ensures critical constraints are always in context without repeating yourself.
+Every planning session starts fresh — `CLAUDE.md` ensures critical constraints are always in context without repeating yourself.
 
 **Example:**
 You create `CLAUDE.md` in your repo root with: "We're on Postgres 12. The User table is in a shared schema we can't modify. All API changes must maintain backwards compatibility with mobile app v2.1+." Now every time you invoke planning mode, Claude reads this file first and factors these constraints into every plan automatically.
@@ -691,7 +691,7 @@ You create `CLAUDE.md` in your repo root with: "We're on Postgres 12. The User t
 Create a `CLAUDE.md` file at your repo root. Document: deployment constraints, database/framework versions, API contracts that can't change, architectural decisions, and any "we tried X and it didn't work" history. Keep it under 500 words — it's loaded into every conversation, so brevity matters.
 
 **Pitfalls:**
-Don't put temporary project state in CLAUDE.md — it's for durable constraints, not current work. Don't let it grow stale — outdated constraints are worse than no constraints.
+Don't put temporary project state in `CLAUDE.md` — it's for durable constraints, not current work. Don't let it grow stale — outdated constraints are worse than no constraints.
 
 ---
 
@@ -775,7 +775,7 @@ Don't copy the entire plan verbatim — PR descriptions should be concise. Extra
 
 ---
 
-### Steer plans with AskUserQuestion responses
+### Steer plans with `AskUserQuestion` responses
 
 **Why & when it matters:**
 Claude's questions during planning reveal uncertainties — your answers shape the plan more than your initial prompt.
